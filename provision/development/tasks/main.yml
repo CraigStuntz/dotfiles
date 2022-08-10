@@ -1,0 +1,14 @@
+---
+# tasks file for development
+
+- name: Install VS Code
+  homebrew_cask:
+    name: visual-studio-code
+    state: present
+    update_homebrew: yes
+
+- name: Install dotnet
+  homebrew_cask:
+    name: dotnet
+    state: present
+    update_homebrew: no

@@ -1,0 +1,19 @@
+---
+# tasks file for common
+- name: Install XCode command line tools
+  ansible.builtin.command: xcode-select --install
+  register: xcodecommandlinetools
+  changed_when: xcodecommandlinetools.rc == 0
+  failed_when: xcodecommandlinetools.rc not in [0,1]
+
+- name: Install rectangle
+  homebrew_cask:
+    name: rectangle
+    state: present
+    update_homebrew: yes
+
+- name: Install kitty
+  homebrew_cask:
+    name: kitty
+    state: present
+    update_homebrew: no
