@@ -6,6 +6,15 @@
   changed_when: xcodecommandlinetools.rc == 0
   failed_when: xcodecommandlinetools.rc not in [0,1]
 
+- name: Get keyboard repeat speed
+  ansible.builtin.command: defaults read -g KeyRepeat
+  register: KeyRepeat
+  changed_when: false
+
+- name: Set keyboard repeat speed
+  ansible.builtin.command: defaults write -g KeyRepeat -int 1
+  when: KeyRepeat.stdout|int > 1
+
 - name: Install rectangle
   homebrew_cask:
     name: rectangle
