@@ -1,25 +1,23 @@
 ---
 # tasks file for development
 
-- name: Add microsoft/git homebrew tap
-  # Needed for git-credential-manager-core
-  community.general.homebrew_tap:
-    name: microsoft/git
-
-- name: Install git credential manager
-  homebrew_cask:
-    name: git-credential-manager-core
+- name: Install homebrew formulae
+  homebrew:
+    name: "{{ item.name }}"
     state: present
-    update_homebrew: yes
+  loop:
+    - {name: git}
+  loop_control:
+    label: "{{ item.name }}"
 
-- name: Install VS Code
+- name: Install homebrew casks
   homebrew_cask:
-    name: visual-studio-code
+    name: "{{ item.name }}"
     state: present
-    update_homebrew: no
-
-- name: Install dotnet
-  homebrew_cask:
-    name: dotnet
-    state: present
-    update_homebrew: no
+    update_homebrew: "{{ item.update_homebrew | default('no') }}"
+  loop:
+    - {name: git-credential-manager, update_homebrew: yes}
+    - {name: visual-studio-code}
+    - {name: dotnet}
+  loop_control:
+    label: "{{ item.name }}"

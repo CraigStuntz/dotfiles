@@ -16,4 +16,6 @@ then
 fi
 
 echo "[provision.sh] Executing Ansible playbook..."
-ansible-playbook playbook.yaml -i inventory.yaml
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+echo $SCRIPT_DIR
+ansible-playbook "$@" $SCRIPT_DIR/playbook.yaml -i $SCRIPT_DIR/inventory.yaml 
